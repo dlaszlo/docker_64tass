@@ -1,3 +1,6 @@
+# ==========================
+# Build C64 tools
+# ==========================
 FROM alpine:latest as c64tools 
 
 COPY tools /build
@@ -23,14 +26,28 @@ RUN apk add --no-cache --update build-base curl make unzip &&\
     mv b2.exe /tools/b2            &&\
     rm -rf /build
 
+# ==========================
+# Repack JAVA11
+# ==========================
+FROM alpine:latest as javabuild
+
+RUN apk add --no-cache --update openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community &&\
+    cd /usr/lib/jvm/java-11-openjdk/bin &&\
+    ./jlink --add-modules jdk.unsupported,jdk.compiler,java.base,java.desktop,java.naming,java.management,java.instrument,java.security.jgss \
+            --verbose --compress 2 --no-header-files --no-man-pages --output /opt/java11
+
+# ==========================
+# Build 64TASS image
+# ==========================
 FROM alpine:latest
 
 COPY --from=c64tools /tools /tools
+COPY --from=javabuild /opt/java11 /opt/java11
 
-RUN apk add --no-cache --update make unzip curl python3 py3-pip nodejs npm &&\
-    apk add --no-cache --update openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add --no-cache --update make unzip curl python3 py3-pip nodejs npm
 
-ENV PATH="/tools:${PATH}"
+ENV JAVA_HOME="/opt/java11"
+ENV PATH="/tools:/opt/java11/bin:${PATH}"
 
 WORKDIR /source
 
