@@ -6,12 +6,18 @@ https://sourceforge.net/projects/tass64/
 
 # How to use this image
 
-Add _make.bat batch file to your C64 project (or an equivalent script on other operation systems):
+Add _make.bat batch file (Windows) or _make.sh shell script (Linux) to your C64 project:
 
+make.bat:
 ```
 @echo off
 set curr_dir=%~dp0
 docker run --rm -v %curr_dir%:/source dlaszlo/64tass make %*
+```
+make.sh:
+```
+#!/bin/bash
+docker run --user $(id -u):$(id -g) --rm -v "$PWD:/source" dlaszlo/64tass make $@
 ```
 
 Add a Makefile to your C64 project, for example:
@@ -48,7 +54,7 @@ Compile your project:
 
 You can use the following utilities:
 
-- 64tass (v1.55.2200)
+- 64tass (v1.56.2625): https://sourceforge.net/projects/tass64/
 - ByteBoozer 2: https://csdb.dk/release/?id=145031
 - Exomizer 3.1.0: https://csdb.dk/release/?id=198340
 - OpenJDK11, Python3, NodeJS, NPM
@@ -56,3 +62,5 @@ You can use the following utilities:
 Dockerfile:
 
 https://github.com/dlaszlo/docker_64tass
+
+

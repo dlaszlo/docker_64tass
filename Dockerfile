@@ -13,8 +13,8 @@ RUN apk add --no-cache --update build-base curl make unzip &&\
     unzip ../exomizer-3.1.0.zip    &&\
     cd /build                      &&\
     unzip b2.zip                   &&\
-    unzip 64tass-1.55.2200-src.zip &&\
-    cd /build/64tass-1.55.2200-src &&\
+    unzip 64tass-1.56.2625-src.zip &&\
+    cd /build/64tass-1.56.2625-src &&\
     make                           &&\
     mv 64tass /tools               &&\
     cd /build/exomizer/src         &&\
