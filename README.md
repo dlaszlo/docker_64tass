@@ -1,3 +1,4 @@
+
 # What is 64tass
 
 64tass is cross assembler targeting the 65xx series of micro processors.
@@ -62,5 +63,9 @@ You can use the following utilities:
 Dockerfile:
 
 https://github.com/dlaszlo/docker_64tass
+
+# Build
+
+https://docs.docker.com/desktop/multi-arch/
 
 

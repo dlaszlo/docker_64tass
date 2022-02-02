@@ -44,7 +44,7 @@ FROM alpine:latest
 COPY --from=c64tools /tools /tools
 COPY --from=javabuild /opt/java11 /opt/java11
 
-RUN apk add --no-cache --update make unzip curl python3 py3-pip nodejs npm
+RUN apk add --no-cache --update build-base make unzip curl python3 py3-pip nodejs npm
 
 ENV JAVA_HOME="/opt/java11"
 ENV PATH="/tools:/opt/java11/bin:${PATH}"
